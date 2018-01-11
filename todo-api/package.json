@@ -1,6 +1,6 @@
 {
   "name": "todo-api",
-  "description": "A tolication apid",
+  "description": "A todo api",
   "version": "0.0.0",
   "homepage": "",
   "main": "src",
