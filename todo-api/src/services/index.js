@@ -1,2 +1,4 @@
-module.exports = function (app) { // eslint-disable-line no-unused-vars
+const todos = require('./todos/todos.service.js');
+module.exports = function (app) {
+  app.configure(todos);
 };
