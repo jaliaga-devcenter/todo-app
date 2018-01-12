@@ -1,23 +1,23 @@
-// Initializes the `todos` service on path `/todos`
+// Initializes the `teams` service on path `/teams`
 const createService = require('feathers-mongoose');
-const createModel = require('../../models/todos.model');
-const hooks = require('./todos.hooks');
+const createModel = require('../../models/teams.model');
+const hooks = require('./teams.hooks');
 
 module.exports = function (app) {
   const Model = createModel(app);
   const paginate = app.get('paginate');
 
   const options = {
-    name: 'todos',
+    name: 'teams',
     Model,
     paginate
   };
 
   // Initialize our service with any options it requires
-  app.use('/todos', createService(options));
+  app.use('/teams', createService(options));
 
   // Get our initialized service so that we can register hooks and filters
-  const service = app.service('todos');
+  const service = app.service('teams');
 
   service.hooks(hooks);
 };
