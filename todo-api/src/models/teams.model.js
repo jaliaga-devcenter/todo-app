@@ -4,19 +4,19 @@
 // for more of what you can do here.
 module.exports = function (app) {
   const mongooseClient = app.get('mongooseClient');
-  const { Schema, ObjectId } = mongooseClient;
+  const { Schema } = mongooseClient;
 
   const todo = new Schema({
     text: { type: String, required: true },
-    isCompleted: {type: Boolean},
-    completeDate: {type: Date},
-    createdBy: {ObjectId}
+    isCompleted: { type: Boolean},
+    completeDate: { type: Date},
+    createdBy: { type: Schema.Types.ObjectId, ref: 'users' }
   }, {
     timestamps: true
   });
 
   const user = new Schema({
-    user_id: {ObjectId},
+    user_id: { type: Schema.Types.ObjectId, ref: 'users' },
     role: { type: String, required: true },
     todos: [todo],
     history: [todo]
