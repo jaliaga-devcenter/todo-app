@@ -16,14 +16,20 @@ import { Switch, Route } from 'react-router-dom';
 
 import HomePage from 'containers/HomePage/Loadable';
 import NotFoundPage from 'containers/NotFoundPage/Loadable';
+import Footer from 'components/Footer';
+import Header from 'components/Header';
+
+import Wrapper from './Wrapper';
 
 export default function App() {
   return (
-    <div>
+    <Wrapper>
+      <Header />
       <Switch>
         <Route exact path="/" component={HomePage} />
         <Route component={NotFoundPage} />
       </Switch>
-    </div>
+      <Footer />
+    </Wrapper>
   );
 }
