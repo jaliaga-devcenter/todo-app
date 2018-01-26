@@ -11,14 +11,34 @@
 
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
+import styled from 'styled-components';
+
+import TodoCard from 'components/TodoCard/Loadable'
+
 import messages from './messages';
+
+const Wrapper = styled.div`
+  display: flex;
+  justify-content: space-evenly;
+  align-content: flex-start;
+  background-color: #DDDDDD;
+  flex-wrap: wrap;
+
+`;
 
 export default class HomePage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   render() {
     return (
-      <div>
-        <FormattedMessage {...messages.header} />
-      </div>
+      <Wrapper>
+        <TodoCard />
+        <TodoCard />
+        <TodoCard />
+        <TodoCard />
+        <TodoCard />
+        <TodoCard />
+        <TodoCard />
+        <TodoCard />
+      </Wrapper>
     );
   }
 }

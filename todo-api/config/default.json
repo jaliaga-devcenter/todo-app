@@ -7,10 +7,9 @@
     "max": 50
   },
   "authentication": {
-    "secret": "d0e3abf19df3ddc5443fa97def93677c98cdd578b8b08d823a58fbf67b8aab2c1290e17d135032d470b925e5023e12288438276a4fef65103e35d7fcf451de1bdf43b21f5392b8b153498deb38a511989d6ef399ca1eba8a8a818dbdb8ccae5c408d9fc1f33246241e74359b362f8cf1742105d8d32780d1c5214ed218c3b89a0ae04ea01f86a87f246a01fc418b916abffcb1b6334cee6a8289a979abcc096c930975b2744dcfc7110edb7197e88550522c9ccec9ee342cc40dfce64895fa98124ecb70cdfe66cb0bde662552481341f149cb6b0e356aa90748beb215d499846745c6a3ca045b0044ef15abb780138e7152f4dc6f64de9c4bd711eb4eff6600",
+    "secret": "6a30c33b0696c37cfe00201284e5a35a1c6cbf96b949ff0157b25f1976a0705bab939d7792e3859bb8c7f30f2016a3c1923f3e587059df83c57711c446a0726358a2619492d9927aada8dade8936091bf4c40fd00447e1f6970a7b05d4274aaf28139df7e466f1412be4573cf6e29db4ee75bbf8a3b8d9a058feee8a60f3d28db61938013d0406d8991ec54532ed9da2b13aa3fd37164e85e5f4231d3132c1257409700dc551f9d2552b162fde46a6adb3ea639fa1d0ee048003063d8a7c13f275f1cfdcae6579cbc3bb10799e762e28ffeac9c02e5eaaf07014bdc5dcc8d817c95f3d514f782dce2c4d8474c81c3dcfa3f34b4f6e7d86e57028131fd4d201a5",
     "strategies": [
-      "jwt",
-      "local"
+      "jwt"
     ],
     "path": "/authentication",
     "service": "users",
@@ -20,25 +19,19 @@
       },
       "audience": "https://yourdomain.com",
       "subject": "anonymous",
-      "issuer": "feathers",
+      "issuer": "devcenter.es",
       "algorithm": "HS256",
       "expiresIn": "1d"
     },
-    "local": {
-      "entity": "user",
-      "usernameField": "email",
-      "passwordField": "password"
-    },
     "google": {
-      "clientID": "your google client id",
-      "clientSecret": "your google client secret",
-      "successRedirect": "/",
+      "clientID": "------TODO------",
+      "clientSecret": "------TODO------",
       "scope": [
         "profile openid email"
       ]
     },
     "cookie": {
-      "enabled": true,
+      "enabled": false,
       "name": "feathers-jwt",
       "httpOnly": false,
       "secure": false

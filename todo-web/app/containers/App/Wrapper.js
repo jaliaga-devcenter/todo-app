@@ -8,8 +8,6 @@ const Wrapper = styled.div`
     "footer";
   grid-template-rows: 50px 1fr 40px;
   grid-template-columns: 1fr;
-  grid-row-gap: 10px;
-  grid-column-gap: 10px;
   height: 100vh;
   margin: 0;
 `;

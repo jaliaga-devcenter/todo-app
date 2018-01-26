@@ -8,6 +8,6 @@ import { defineMessages } from 'react-intl';
 export default defineMessages({
   header: {
     id: 'app.components.Footer.header',
-    defaultMessage: 'Created with {icon} by {user}',
+    defaultMessage: 'Made with {icon} by {user}',
   },
 });
