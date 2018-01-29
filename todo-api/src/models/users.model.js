@@ -15,6 +15,7 @@ module.exports = function (app) {
     },
     provider: { type: String },
     googleId: { type: String },
+    picture: { type: String },
   }, {
     timestamps: true
   });

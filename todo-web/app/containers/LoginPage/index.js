@@ -37,8 +37,13 @@ export class LoginPage extends React.Component { // eslint-disable-line react/pr
   }
 
   responseGoogle = (response) => {
+    console.log(response);
     const { access_token, id_token } = response.tokenObj;
     this.setState(Object.assign(this.state, { access_token, id_token }));
+  }
+
+  logoutResponse = (response) => {
+    console.log(response);
   }
 
   render() {
@@ -46,7 +51,7 @@ export class LoginPage extends React.Component { // eslint-disable-line react/pr
       <Wrapper>
 
         <GoogleLogin
-          clientId="--------TODO--------"
+          clientId="33584198011-5snjiujs92pb0ru5k1hljlqjlaur10ik.apps.googleusercontent.com"
           buttonText="Sign up with Google"
           onSuccess={this.responseGoogle}
           onFailure={this.responseGoogle}
@@ -54,7 +59,7 @@ export class LoginPage extends React.Component { // eslint-disable-line react/pr
         </GoogleLogin>
         <br />
         <GoogleLogin
-          clientId="--------TODO--------"
+          clientId="33584198011-5snjiujs92pb0ru5k1hljlqjlaur10ik.apps.googleusercontent.com"
           buttonText="Login with Google"
           onSuccess={this.responseGoogle}
           onFailure={this.responseGoogle}
@@ -62,7 +67,7 @@ export class LoginPage extends React.Component { // eslint-disable-line react/pr
         <br />
         <GoogleLogout
           buttonText="Logout"
-          onLogoutSuccess={this.responseGoogle}
+          onLogoutSuccess={this.logoutResponse}
         />
 
         <p>{this.state.access_token}</p>
