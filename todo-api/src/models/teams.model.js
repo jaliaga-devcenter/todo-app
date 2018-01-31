@@ -7,20 +7,21 @@
 module.exports = function (app) {
   const mongooseClient = app.get('mongooseClient');
   const { Schema } = mongooseClient;
+
+  const todo = new Schema({
+    createdBy: { type: Schema.Types.ObjectId, ref: 'users'},
+    text: { type: String }
+  });
+
+  const member = new Schema({
+    user: { type: Schema.Types.ObjectId, ref: 'users'},
+    rol: { type: String },
+    todos: [ todo ]
+  });
+
   const teams = new Schema({
     name: { type: String, required: true },
-    members:  [
-      {
-        _id: {type: Schema.Types.ObjectId},
-        user: { type: Schema.Types.ObjectId, ref: 'users'},
-        rol: { type: String },
-        todos: [ {
-          _id: {type: Schema.Types.ObjectId},
-          createdBy: { type: Schema.Types.ObjectId, ref: 'users'},
-          text: { type: String }
-        } ]
-      }
-    ]
+    members:  [member]
   }, {
     timestamps: true
   });

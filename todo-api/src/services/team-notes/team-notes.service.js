@@ -1,27 +1,25 @@
-// Initializes the `teamMembers` service on path `/team-members`
-const createService = require('./team-members.class.js');
-
-const hooks = require('./team-members.hooks');
+// Initializes the `team-notes` service on path `/team-notes`
+const createService = require('./team-notes.class.js');
+const hooks = require('./team-notes.hooks');
 
 module.exports = function (app) {
-  const teamService = app.service('teams');
+
   const paginate = app.get('paginate');
   const mongooseClient = app.get('mongooseClient');
-
   const Model = mongooseClient.model('teams');
 
   const options = {
-    name: 'team-members',
+    name: 'team-notes',
     paginate,
-    teamService,
-    Model
+    Model,
+    Client: mongooseClient
   };
 
   // Initialize our service with any options it requires
-  app.use('/team-members', createService(options));
+  app.use('/team-notes', createService(options));
 
   // Get our initialized service so that we can register hooks and filters
-  const service = app.service('team-members');
+  const service = app.service('team-notes');
 
   service.hooks(hooks);
 };

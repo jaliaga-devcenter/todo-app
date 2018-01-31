@@ -1,4 +1,7 @@
 const { authenticate } = require('@feathersjs/authentication').hooks;
+const { validateSchema } = require('feathers-hooks-common');
+const Ajv = require('ajv');
+const { createSchema } = require('./users.schema.js');
 const socialuser = require('../../hooks/socialuser.js');
 
 
@@ -8,7 +11,7 @@ module.exports = {
     all: [],
     find: [ authenticate('jwt') ],
     get: [ authenticate('jwt') ],
-    create: [  socialuser() ],
+    create: [  validateSchema(createSchema, Ajv), socialuser() ],
     update: [  authenticate('jwt') ],
     patch: [  authenticate('jwt') ],
     remove: [ authenticate('jwt') ]

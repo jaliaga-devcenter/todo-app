@@ -60,7 +60,7 @@ async function getGoogleProfile(idToken) {
     const url = `${googleTokenInfoUrl}${idToken}`;
     const res = await axios(url);
     const json = res.data;
-    
+
     const profile = { provider: 'google' };
     profile.googleId = json.sub;
     profile.displayName = json.name;

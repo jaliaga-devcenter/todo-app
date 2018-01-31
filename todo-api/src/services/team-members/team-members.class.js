@@ -2,18 +2,18 @@
 class Service {
   constructor (options) {
     this.options = options || {};
-    this.teamService = options.teamService || {};
+    this.Model = options.Model;
   }
 
   async patch (id, data, params) {
-    const team = await this.teamService.get(id);
-    // data.map
-
-    const members = team.members;
-
+    const team = await this.Model.findByIdAndUpdate(id,{$push: {members: {$each: data}}}, {new: true});
     return team;
   }
 
+  async remove(id, params){
+    const team = await this.Model.findByIdAndUpdate(id,{$pull: {members: { _id: params.query.member }}}, {new: true});
+    return team;
+  }
 }
 
 module.exports = function (options) {

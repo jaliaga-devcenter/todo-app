@@ -35,5 +35,6 @@
       "httpOnly": false,
       "secure": false
     }
-  }
+  },
+  "mongodb": "mongodb://localhost:27017/team_notes"
 }
