@@ -7,7 +7,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { FormattedMessage } from 'react-intl';
+
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 import styled from 'styled-components';
@@ -17,10 +17,12 @@ import { GoogleLogin, GoogleLogout } from 'react-google-login';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 
-import makeSelectLoginPage from './selectors';
+import { makeSelectLoading, makeSelectError } from 'containers/App/selectors';
+import { makeSelectProvider, makeSelectIdToken, makeSelectAccessToken } from './selectors';
+import { signUp, login, logout } from './actions';
 import reducer from './reducer';
 import saga from './saga';
-import messages from './messages';
+
 
 const Wrapper = styled.div`
   display: flex;
@@ -31,29 +33,31 @@ const Wrapper = styled.div`
 `;
 
 export class LoginPage extends React.Component { // eslint-disable-line react/prefer-stateless-function
-  constructor() {
-    super();
-    this.state = { access_token: null, id_token: null };
+  googleSignup = (response) => {
+    const { access_token, id_token } = response.tokenObj;
+    this.props.onSignUp('google', id_token, access_token);
+  }
+
+  googleLogin = (response) => {
+    const { access_token, id_token } = response.tokenObj;
+    this.props.onSignUp('google', id_token, access_token);
+  }
+
+  googleLogout = () => {
+    this.props.onLogout();
   }
 
   responseGoogle = (response) => {
-    console.log(response);
-    const { access_token, id_token } = response.tokenObj;
-    this.setState(Object.assign(this.state, { access_token, id_token }));
-  }
-
-  logoutResponse = (response) => {
     console.log(response);
   }
 
   render() {
     return (
       <Wrapper>
-
         <GoogleLogin
           clientId="33584198011-5snjiujs92pb0ru5k1hljlqjlaur10ik.apps.googleusercontent.com"
           buttonText="Sign up with Google"
-          onSuccess={this.responseGoogle}
+          onSuccess={this.googleSignup}
           onFailure={this.responseGoogle}
         >
         </GoogleLogin>
@@ -61,41 +65,46 @@ export class LoginPage extends React.Component { // eslint-disable-line react/pr
         <GoogleLogin
           clientId="33584198011-5snjiujs92pb0ru5k1hljlqjlaur10ik.apps.googleusercontent.com"
           buttonText="Login with Google"
-          onSuccess={this.responseGoogle}
+          onSuccess={this.googleLogin}
           onFailure={this.responseGoogle}
         />
         <br />
         <GoogleLogout
           buttonText="Logout"
-          onLogoutSuccess={this.logoutResponse}
+          onLogoutSuccess={this.googleLogout}
         />
-
-        <p>{this.state.access_token}</p>
-        <p>{this.state.id_token}</p>
-
       </Wrapper>
     );
   }
 }
 
 LoginPage.propTypes = {
-  dispatch: PropTypes.func.isRequired,
+  onSignUp: PropTypes.func,
+  onLogin: PropTypes.func,
+  onLogout: PropTypes.func,
 };
 
 const mapStateToProps = createStructuredSelector({
-  loginpage: makeSelectLoginPage(),
+  // provider: makeSelectProvider(),
+  // idToken: makeSelectIdToken(),
+  // accessToken: makeSelectAccessToken(),
+  // loading: makeSelectLoading(),
+  // error: makeSelectError(),
 });
 
 function mapDispatchToProps(dispatch) {
   return {
-    dispatch,
+    onSignUp: (provider, idToken, accessToken) => dispatch(signUp(provider, idToken, accessToken)),
+    onLogin: (provider, accessToken) => dispatch(login(provider, accessToken)),
+    onLogout: () => dispatch(logout()),
   };
 }
 
 const withConnect = connect(mapStateToProps, mapDispatchToProps);
 
-const withReducer = injectReducer({ key: 'loginPage', reducer });
-const withSaga = injectSaga({ key: 'loginPage', saga });
+const withReducer = injectReducer({ key: 'login', reducer });
+const withSaga = injectSaga({ key: 'login', saga });
+
 
 export default compose(
   withReducer,

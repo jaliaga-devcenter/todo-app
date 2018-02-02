@@ -5,11 +5,41 @@
  */
 
 import {
-  DEFAULT_ACTION,
+  SIGNUP,
+  SIGNUP_SUCCESS,
+  SIGNUP_ERROR,
+  LOGIN,
+  LOGIN_SUCCESS,
+  LOGIN_ERROR,
+  LOGOUT,
 } from './constants';
 
-export function defaultAction() {
+export function signUp(provider, idToken, accessToken) {
   return {
-    type: DEFAULT_ACTION,
+    type: SIGNUP,
+    provider,
+    idToken,
+    accessToken,
+  };
+}
+
+export function signUpError(error) {
+  return {
+    type: SIGNUP_ERROR,
+    error,
+  };
+}
+
+export function login(provider, accessToken) {
+  return {
+    type: LOGIN,
+    provider,
+    accessToken,
+  };
+}
+
+export function logout() {
+  return {
+    type: LOGOUT,
   };
 }
