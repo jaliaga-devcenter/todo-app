@@ -25,6 +25,8 @@ module.exports = function (options = {}) {  // eslint-disable-line no-unused-var
     hook.data.name = profile.name;
     hook.data.provider = profile.provider;
     hook.data.googleId = profile.googleId;
+    hook.data.picture = profile.picture;
+    hook.data.rol = 'user';    
 
     // Hooks can either return nothing or a promise
     // that resolves with the `hook` object for asynchronous operations

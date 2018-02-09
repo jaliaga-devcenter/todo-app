@@ -12,6 +12,7 @@ import { FormattedMessage } from 'react-intl';
 import Wrapper from './Wrapper';
 import messages from './messages';
 
+
 function Header() {
   return (
     <Wrapper>

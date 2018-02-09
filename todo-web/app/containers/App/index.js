@@ -19,6 +19,7 @@ import LoginPage from 'containers/LoginPage/Loadable';
 import NotFoundPage from 'containers/NotFoundPage/Loadable';
 import Footer from 'components/Footer';
 import Header from 'components/Header';
+import PrivateRoute from 'components/PrivateRoute';
 
 import Wrapper from './Wrapper';
 
@@ -27,7 +28,7 @@ export default function App() {
     <Wrapper>
       <Header />
       <Switch>
-        <Route exact path="/" component={HomePage} />
+        <PrivateRoute exact path="/" component={HomePage} />
         <Route exact path="/login" component={LoginPage} />
         <Route component={NotFoundPage} />
       </Switch>

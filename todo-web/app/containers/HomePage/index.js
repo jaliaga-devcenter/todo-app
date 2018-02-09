@@ -10,12 +10,19 @@
  */
 
 import React from 'react';
-import { FormattedMessage } from 'react-intl';
+import { connect } from 'react-redux';
+import { compose } from 'redux';
+import { createStructuredSelector } from 'reselect';
+
+import injectSaga from 'utils/injectSaga';
+
 import styled from 'styled-components';
 
-import TodoCard from 'components/TodoCard/Loadable'
+import TodoCard from 'components/TodoCard/Loadable';
 
-import messages from './messages';
+import { makeSelectUser, makeSelectTeam, makeSelectLoading, makeSelectError } from '../App/selectors';
+import saga from './saga';
+
 
 const Wrapper = styled.div`
   display: flex;
@@ -26,19 +33,43 @@ const Wrapper = styled.div`
 
 `;
 
-export default class HomePage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
+class HomePage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   render() {
     return (
-      <Wrapper>
-        <TodoCard />
-        <TodoCard />
-        <TodoCard />
-        <TodoCard />
-        <TodoCard />
-        <TodoCard />
-        <TodoCard />
-        <TodoCard />
-      </Wrapper>
+      <div>
+        <Wrapper>
+          <TodoCard />
+          <TodoCard />
+          <TodoCard />
+          <TodoCard />
+          <TodoCard />
+          <TodoCard />
+          <TodoCard />
+          <TodoCard />
+        </Wrapper>
+      </div>
     );
   }
 }
+
+export function mapDispatchToProps(dispatch) {
+  return {
+    onChangeTeam: (evt) => dispatch(),
+  };
+}
+
+const mapStateToProps = createStructuredSelector({
+  userData: makeSelectUser(),
+  teamData: makeSelectTeam(),
+  loading: makeSelectLoading(),
+  error: makeSelectError(),
+});
+
+
+const withConnect = connect(mapStateToProps, mapDispatchToProps);
+const withSaga = injectSaga({ key: 'home', saga });
+
+export default compose(
+  withSaga,
+  withConnect,
+)(HomePage);

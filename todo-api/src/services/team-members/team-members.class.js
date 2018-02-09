@@ -5,6 +5,10 @@ class Service {
     this.Model = options.Model;
   }
 
+  async find(params){
+    return;
+  }
+
   async patch (id, data, params) {
     const team = await this.Model.findByIdAndUpdate(id,{$push: {members: {$each: data}}}, {new: true});
     return team;

@@ -19,8 +19,21 @@ const makeSelectError = () => createSelector(
   (globalState) => globalState.get('error')
 );
 
+const makeSelectUser = () => createSelector(
+  selectGlobal,
+  (globalState) => globalState.get('userData')
+);
+
+const makeSelectTeam = () => createSelector(
+  selectGlobal,
+  (globalState) => globalState.get('teamData')
+);
+
+
 export {
   makeSelectLocation,
   makeSelectLoading,
   makeSelectError,
+  makeSelectUser,
+  makeSelectTeam,
 };

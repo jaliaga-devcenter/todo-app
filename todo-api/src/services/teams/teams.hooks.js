@@ -1,20 +1,37 @@
 const { authenticate } = require('@feathersjs/authentication').hooks;
-const { discard } = require('feathers-hooks-common');
+const { discard, disallow, alterItems } = require('feathers-hooks-common');
 
 module.exports = {
   before: {
-    all: [ authenticate('jwt') ],
+    all: [
+      authenticate('jwt'),
+    ],
     find: [],
     get: [],
     create: [discard('members')],
-    update: [],
-    patch: [],
-    remove: []
+    update: [disallow()],
+    patch: [disallow()],
+    remove: [disallow()]
   },
 
   after: {
-    all: [],
-    find: [],
+    all: [
+      alterItems(team => {
+        team.id = team._id;
+        const members = team.members.map(
+          member => {
+            member.id = member._id;
+            delete member._id;
+            return member;
+          }
+        );
+        team.members = members;
+      }),
+      discard('updatedAt', 'createdAt', '__v', '_id', 'team.members._id'),
+    ],
+    find: [
+      discard('members'),
+    ],
     get: [],
     create: [],
     update: [],

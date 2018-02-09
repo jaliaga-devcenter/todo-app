@@ -18,7 +18,6 @@ import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 
 import { makeSelectLoading, makeSelectError } from 'containers/App/selectors';
-import { makeSelectProvider, makeSelectIdToken, makeSelectAccessToken } from './selectors';
 import { signUp, login, logout } from './actions';
 import reducer from './reducer';
 import saga from './saga';
@@ -40,7 +39,7 @@ export class LoginPage extends React.Component { // eslint-disable-line react/pr
 
   googleLogin = (response) => {
     const { access_token, id_token } = response.tokenObj;
-    this.props.onSignUp('google', id_token, access_token);
+    this.props.onLogin('google', id_token, access_token);
   }
 
   googleLogout = () => {
@@ -85,9 +84,6 @@ LoginPage.propTypes = {
 };
 
 const mapStateToProps = createStructuredSelector({
-  // provider: makeSelectProvider(),
-  // idToken: makeSelectIdToken(),
-  // accessToken: makeSelectAccessToken(),
   // loading: makeSelectLoading(),
   // error: makeSelectError(),
 });
@@ -95,7 +91,7 @@ const mapStateToProps = createStructuredSelector({
 function mapDispatchToProps(dispatch) {
   return {
     onSignUp: (provider, idToken, accessToken) => dispatch(signUp(provider, idToken, accessToken)),
-    onLogin: (provider, accessToken) => dispatch(login(provider, accessToken)),
+    onLogin: (provider, idToken, accessToken) => dispatch(login(provider, idToken, accessToken)),
     onLogout: () => dispatch(logout()),
   };
 }

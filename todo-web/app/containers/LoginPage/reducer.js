@@ -27,13 +27,13 @@ function loginPageReducer(state = initialState, action) {
     case LOGIN:
       return state
           .set('provider', action.provider)
-          .set('idToken', false)
+          .set('idToken', action.idToken)
           .set('accessToken', action.accessToken);
     case LOGOUT:
       return state
-        .set('provider', false)
-        .set('idToken', false)
-        .set('accessToken', false);
+        .set('provider', '')
+        .set('idToken', '')
+        .set('accessToken', '');
     default:
       return state;
   }

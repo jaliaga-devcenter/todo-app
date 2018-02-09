@@ -1,0 +1,123 @@
+swagger: '2.0'
+info:
+  description: >-
+    Team Notes API
+  version: 1.0.0
+  title: Team Notes
+  termsOfService: 'http://swagger.io/terms/'
+  contact:
+    email: jaliaga@devcenter.es
+  license:
+    name: Apache 2.0
+    url: 'http://www.apache.org/licenses/LICENSE-2.0.html'
+host: teamnotes.io
+tags:
+  - name: user
+    description: Everything about your users
+  - name: team
+    description: Everything about your teams
+  - name: profile
+    description: Everything about your profile
+  - name: notes
+    description: Everything about members
+schemes:
+  - http
+  - https
+securityDefinitions:
+  Bearer:
+    type: apiKey
+    name: Authorization
+    in: header
+paths:
+  /users:
+    post:
+      tags:
+        - user
+      summary: Add a new user
+      operationId: addUser
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: body
+          description: Sign in object
+          required: true
+          schema:
+            $ref: '#/definitions/SignIn'
+      responses:
+        '200':
+          description: Success
+          schema:
+            $ref: '#/definitions/User'
+        '405':
+          description: Invalid input
+  /authentication:
+    post:
+      tags:
+        - user
+      summary: Login action
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: body
+          description: Login object
+          required: true
+          schema:
+            $ref: '#/definitions/LogIn'
+      responses:
+        '200':
+          description: Success
+          schema:
+            $ref: '#/definitions/LogInResponse'
+        '405':
+          description: Invalid input
+definitions:
+  SignIn:
+    type: object
+    properties:
+      provider:
+        type: string
+      idtoken:
+        type: string
+  LogIn:
+    type: object
+    properties:
+      provider:
+        type: string
+      access_token:
+        type: string
+  LogInResponse:
+      type: object
+      properties:
+        accessToken:
+          type: string
+  User:
+    type: object
+    properties:
+      id:
+        type: string
+      email:
+        type: string
+      picture:
+        type: string
+      name:
+        type: object
+        properties:
+          fullname:
+            type: string
+          familyName:
+            type: string
+          givenName:
+            type: string
+  Team:
+    type: object
+    properties:
+      id:
+        type: string
+      name:
+        type: string

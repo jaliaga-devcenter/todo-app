@@ -6,10 +6,8 @@
 
 import {
   SIGNUP,
-  SIGNUP_SUCCESS,
   SIGNUP_ERROR,
   LOGIN,
-  LOGIN_SUCCESS,
   LOGIN_ERROR,
   LOGOUT,
 } from './constants';
@@ -30,11 +28,19 @@ export function signUpError(error) {
   };
 }
 
-export function login(provider, accessToken) {
+export function login(provider, idToken, accessToken) {
   return {
     type: LOGIN,
     provider,
+    idToken,
     accessToken,
+  };
+}
+
+export function loginError(error) {
+  return {
+    type: LOGIN_ERROR,
+    error,
   };
 }
 
